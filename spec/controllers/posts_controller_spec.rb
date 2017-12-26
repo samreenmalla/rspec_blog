@@ -55,4 +55,13 @@ RSpec.describe PostsController, type: :controller do
 			end
 		end
 	end
+
+	describe "GET #edit" do
+		it "edits the existing post" do
+			post = FactoryGirl.create(:post)
+			get :edit,params:{id:post.id}
+			expect(response).to render_template :edit
+
+		end
+	end
 end
