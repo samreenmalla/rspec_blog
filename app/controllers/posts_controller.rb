@@ -6,7 +6,8 @@ class PostsController < ApplicationController
   end
 
   def show
-  end
+ 
+   end
 
   def new
   end
@@ -22,4 +23,6 @@ class PostsController < ApplicationController
 
   def destroy
   end
+
 end
+
