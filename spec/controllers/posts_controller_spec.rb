@@ -35,18 +35,24 @@ RSpec.describe PostsController, type: :controller do
 
 		it "redirects_to root_path" do
 		end
-
-		context "with invalid attributes" do
-    		it "doesn't create a new post" do
-
-    		end
-   			it "renders the new template" do
-
-    		end
-
+		context "when attributes are valid" do
+  			it "creates a new post" do
+    		expect {post :create, params:{post: FactoryGirl.attributes_for(:post)} }.to change(Post, :count).by(1)
+  			end
+  			it "redirects to root_path" do
+    		post :create, params:{post: FactoryGirl.attributes_for(:post)}
+   			 expect(response).to redirect_to root_path
+  			end
 		end
-		it "creates a new post" do
- 		 expect {post :create, params: {post: FactoryGirl.attributes_for(:post)} }.to change(Post, :count).by(1)
+
+		context "when attributes are invalid" do
+			it "doesn't create a new post" do
+				expect{post :create, params:{post: FactoryGirl.attributes_for(:invalid_post)}}.to change(Post, :count).by(0)
+			end
+			it "renders the new template" do
+				post :create, params:{post: FactoryGirl.attributes_for(:invalid_post)}
+				expect(response).to render_template :new
+			end
 		end
 	end
 end
